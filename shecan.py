@@ -3,6 +3,10 @@
 import os
 import sys
 import requests
+from time import sleep
+
+ping_check_url =   "https://google.com"
+shecan_check_url = "https://check.shecan.ir:8443" # provided by reverse engiering shecan.ir xhr packets :)
 
 resolv_conf_content = """
 # writed by shecan-cli
@@ -61,7 +65,11 @@ def ping_status():
         return False
 
 def remote_status():
-    return True
+    try:
+        r = requests.get(shecan_check_url, timeout=5)
+        return True
+    except (requests.ConnectionError, requests.Timeout) as exception:
+        return False
 
 def status():
     print("local\t\tping\t\tisShecanized")
@@ -70,7 +78,13 @@ def status():
     print(bool_to_status(remote_status())+"\t\t")
 
 def live_status():
-    pass
+    while True:
+        try:
+            os.system('clear')
+            status()
+            sleep(2)
+        except KeyboardInterrupt:
+            exit(0)
 
 def show_help():
     print("┌────────────────────────────────────────────────────────┐");
