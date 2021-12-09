@@ -1,7 +1,7 @@
 
 # download
 echo "downloading..."
-wget -O - https://github.com/ali77gh/shecan-cli/releases/download/1.0.0/shecan.py > temp.py
+wget -q -O - https://github.com/ali77gh/shecan-cli/releases/download/1.0.0/shecan.py > temp.py
 echo "done"
 
 # copy
