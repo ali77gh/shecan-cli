@@ -6,7 +6,7 @@ import requests
 from time import sleep
 
 ping_check_url =   "https://google.com"
-shecan_check_url = "https://check.shecan.ir:8443" # provided by reverse engiering shecan.ir xhr packets :)
+shecan_check_url = "https://check.shecan.ir:8443" # provided by sniffing shecan.ir xhr request :)
 
 resolv_conf_content = """
 # writed by shecan-cli
