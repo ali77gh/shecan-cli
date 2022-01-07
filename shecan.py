@@ -23,8 +23,7 @@ def check_root():
 
 def disable():
     check_root()
-    os.system("cat /etc/resolv.conf.tmp > /etc/resolv.conf")
-    os.system("rm /etc/resolv.conf.tmp")
+    os.system("mv /etc/resolv.conf.tmp /etc/resolv.conf")
     print("shcan disabled")
 
 def enable():
