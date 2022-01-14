@@ -1,4 +1,15 @@
 
+platform=`uname`
+
+if [ "$platform" = "Linux" ]
+then
+    install_path="/usr/bin/shecan-cli"
+fi
+if [ "$platform" = "Darwin" ]
+then
+    install_path="/usr/local/shecan-cli"
+fi
+
 # download
 echo "downloading..."
 wget -q -O - https://github.com/ali77gh/shecan-cli/releases/download/1.0.1/shecan.py > temp.py
@@ -6,18 +17,13 @@ echo "done"
 
 # copy
 echo "installing..."
-cp temp.py /usr/bin/shecan-cli
+mv temp.py "$install_path"
 echo "done"
 
 # access
 echo "making script executable..."
-chmod +x /usr/bin/shecan-cli
+chmod +x "$install_path"
 echo "done"
 
-# remove temp
-rm temp.py
-
-echo "shecancli installed successfully"
-
-echo "running => shcan-cli help"
+echo "shecan-cli installed successfully"
 shecan-cli help
