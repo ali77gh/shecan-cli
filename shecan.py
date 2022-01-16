@@ -14,11 +14,12 @@ shecan_dns = ["185.51.200.2","178.22.122.100"]
 
 # linux configs
 dns_file = "/etc/resolv.conf"
-dns_file_bak = "/etc/resolv.conf.tmp"
+dns_file_bak = "/etc/resolv.conf.shecan.bak"
 
 # OS X configs
 interface = "Wi-Fi"
-dns_file_bak_mac = "/etc/resolv.conf.tmp"
+user = os.popen("whoami").read()
+dns_file_bak_mac = f"/User/{user}/.shecan-cli"
 
 def check_root():
    if os.geteuid() != 0:
@@ -108,7 +109,7 @@ class Darwin_dns_util:
 def enable():
     if platform=="Linux":
         Linux_dns_util.enable()
-    elif platform=="darwin":
+    elif platform=="Darwin":
         Darwin_dns_util.enable()
     else:
         print(f"{platform} is not supported")
@@ -116,7 +117,7 @@ def enable():
 def disable():
     if platform=="Linux":
         Linux_dns_util.disable()
-    elif platform=="darwin":
+    elif platform=="Darwin":
         Darwin_dns_util.disable()
     else:
         print(f"{platform} is not supported")
@@ -124,7 +125,7 @@ def disable():
 def local_status():
     if platform=="Linux":
         Linux_dns_util.local_status()
-    elif platform=="darwin":
+    elif platform=="Darwin":
         Darwin_dns_util.local_status()
     else:
         print(f"{platform} is not supported")

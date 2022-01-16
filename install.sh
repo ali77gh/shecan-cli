@@ -7,7 +7,7 @@ then
 fi
 if [ "$platform" = "Darwin" ]
 then
-    install_path="/usr/local/shecan-cli"
+    install_path="/usr/local/bin/shecan-cli"
 fi
 
 # download
