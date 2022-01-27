@@ -1,5 +1,5 @@
 # Shecan-cli
-Simple python script for enable\disable shecan.ir dns for gnu/linux users.
+Simple python script for enable\disable shecan.ir dns for gnu/linux and MacOS users.
 
 ```bash
 ┌────────────────────────────────────────────────────────┐
@@ -10,7 +10,7 @@ Simple python script for enable\disable shecan.ir dns for gnu/linux users.
 │ > how to use:              │                           │
 │   shecan-cli help          │ show this beautiful msg   │
 │   shecan-cli status        │ show status (local&remote)│
-│   shecan-cli enable        │ enables shcan DNS         │
+│   shecan-cli enable        │ enables shecan DNS        │
 │   shecan-cli disable       │ load your old DNS config  │
 │   shecan-cli live_status   │ run status in loop        │
 │                            │                           │
@@ -24,5 +24,10 @@ Simple python script for enable\disable shecan.ir dns for gnu/linux users.
 wget -O - https://raw.githubusercontent.com/ali77gh/shecan-cli/master/install.sh | sudo bash
 ```
 
+# Dependencies
+1. python3
+2. requests library for python3
+
 # LICENSE
 Project is under GPL3
+

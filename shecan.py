@@ -168,7 +168,7 @@ def show_help():
     print("│ > how to use:              │                           │");
     print("│   shecan-cli help          │ show this beautiful msg   │");
     print("│   shecan-cli status        │ show status (local&remote)│");
-    print("│   shecan-cli enable        │ enables shcan DNS         │");
+    print("│   shecan-cli enable        │ enables shecan DNS        │");
     print("│   shecan-cli disable       │ load your old DNS config  │");
     print("│   shecan-cli live_status   │ run status in loop        │");
     print("│                            │                           │");
@@ -196,3 +196,4 @@ def main():
         main_switch(sys.argv[1])
 
 main()
+
