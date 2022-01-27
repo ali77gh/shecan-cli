@@ -124,9 +124,9 @@ def disable():
 
 def local_status():
     if platform=="Linux":
-        Linux_dns_util.local_status()
+        return Linux_dns_util.local_status()
     elif platform=="Darwin":
-        Darwin_dns_util.local_status()
+        return Darwin_dns_util.local_status()
     else:
         print(f"{platform} is not supported")
 
