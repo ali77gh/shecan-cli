@@ -4,6 +4,7 @@ import os
 import sys
 import requests
 import platform
+import os.path
 platform = platform.system()
 from time import sleep
 
@@ -56,6 +57,10 @@ class Linux_dns_util:
     
     @staticmethod
     def enable():
+        if Linux_dns_util.local_status():
+            print("shecan is already enabled")
+            exit(0)
+
         check_root()
         # backup
         os.system(f'cp {dns_file} {dns_file_bak}') 
@@ -69,6 +74,9 @@ class Linux_dns_util:
     @staticmethod
     def disable():
         check_root()
+        if not os.path.isfile(dns_file_bak):
+            print("shecan is already disabled")
+            exit(0)
         os.system(f"mv {dns_file_bak} {dns_file}")
         print("shecan disabled")
 
