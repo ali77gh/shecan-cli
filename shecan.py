@@ -99,7 +99,7 @@ class Darwin_dns_util:
     def enable():
         # backup
         result = os.popen(f"networksetup -getdnsservers {interface}").read()
-        f = open(dns_file_bak,"w")
+        f = open(dns_file_bak_mac,"w")
         f.write(result)
 
         # enable
@@ -108,7 +108,7 @@ class Darwin_dns_util:
 
     @staticmethod
     def disable():
-        f = open(dns_file_bak,"r")
+        f = open(dns_file_bak_mac,"r")
         old_dns = f.read()
         os.system(f"networksetup -setdnsservers {interface} {old_dns}")
         pass
