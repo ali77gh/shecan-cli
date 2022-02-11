@@ -12,7 +12,7 @@ fi
 
 # download
 echo "downloading..."
-wget -q -O - https://github.com/ali77gh/shecan-cli/releases/download/1.2.2/shecan.py > temp.py
+wget -q -O - https://github.com/ali77gh/shecan-cli/releases/download/1.3.0/shecan.py > temp.py
 echo "done"
 
 # copy

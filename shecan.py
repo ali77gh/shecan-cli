@@ -77,11 +77,11 @@ class Linux_dns_util:
 class Darwin_dns_util:
 
     def get_current_dns():
-        return os.popen(f"networksetup -getdnsservers {interface}").read().replace("\n", "")
+        return os.popen(f"networksetup -getdnsservers {interface}").read().replace("\n", " ")
 
     @staticmethod
     def get_shecan_dns_list() -> str:
-        return " ".join(shecan_dns)
+        return " ".join(shecan_dns) + " "
 
     @staticmethod
     def local_status() -> bool:
