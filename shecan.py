@@ -19,13 +19,8 @@ dns_file_bak = "/etc/resolv.conf.shecan.bak"
 
 # OS X configs
 interface = "Wi-Fi"
-user = os.popen("whoami").read()
-dns_file_bak_mac = f"/User/{user}/.shecan-cli"
+dns_file_bak_mac = "/var/root/.shecan-cli"
 
-def check_root():
-   if os.geteuid() != 0:
-       print("run as root")
-       exit(-1)
 
 def bool_to_status(bool_value):
     if bool_value:
@@ -61,7 +56,6 @@ class Linux_dns_util:
             print("shecan is already enabled")
             exit(0)
 
-        check_root()
         # backup
         os.system(f'cp {dns_file} {dns_file_bak}') 
 
@@ -73,7 +67,6 @@ class Linux_dns_util:
 
     @staticmethod
     def disable():
-        check_root()
         if not os.path.isfile(dns_file_bak):
             print("shecan is already disabled")
             exit(0)
@@ -83,27 +76,25 @@ class Linux_dns_util:
 
 class Darwin_dns_util:
 
+    def get_current_dns():
+        return os.popen(f"networksetup -getdnsservers {interface}").read().replace("\n", "")
+
     @staticmethod
-    def get_dns_list() -> str:
-        result = ""
-        for dns_server in shecan_dns:
-            result+=dns_server + " "
-        return result
+    def get_shecan_dns_list() -> str:
+        return " ".join(shecan_dns)
 
     @staticmethod
     def local_status() -> bool:
-        result = os.popen(f"networksetup -getdnsservers {interface}").read()
-        return Darwin_dns_util.get_dns_list() == result 
+        return Darwin_dns_util.get_shecan_dns_list() == Darwin_dns_util.get_current_dns()
     
     @staticmethod
     def enable():
         # backup
-        result = os.popen(f"networksetup -getdnsservers {interface}").read()
         f = open(dns_file_bak_mac,"w")
-        f.write(result)
+        f.write(Darwin_dns_util.get_current_dns())
 
         # enable
-        os.system(f"networksetup -setdnsservers {interface} {Darwin_dns_util.get_dns_list()}")
+        os.system(f"networksetup -setdnsservers {interface} {Darwin_dns_util.get_shecan_dns_list()}")
         pass
 
     @staticmethod
@@ -167,6 +158,11 @@ def live_status():
         except KeyboardInterrupt:
             exit(0)
 
+def show_permission_error():
+    print("┌───────────────────────────────────────────────────────┐")
+    print("│ Permission denied. you may need to run with 'sudo'    │")
+    print("└───────────────────────────────────────────────────────┘")
+
 def show_help():
     print("┌────────────────────────────────────────────────────────┐");
     print("│                        shecan-cli                      │");
@@ -201,7 +197,11 @@ def main():
     if len(sys.argv) != 2:
         show_help()
     else:
-        main_switch(sys.argv[1])
+        try:
+            main_switch(sys.argv[1])
+        except PermissionError:
+            show_permission_error()
 
-main()
 
+if __name__ == '__main__':
+    main()
