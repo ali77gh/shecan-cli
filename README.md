@@ -2,6 +2,7 @@
 Simple python script for enable and disable shecan.ir dns for gnu/linux and MacOS users.
 <br>
 <center><img src="./logo.png" width=200></center> <br>
+
 ```bash
 ┌────────────────────────────────────────────────────────┐
 │                        shecan-cli                      │
