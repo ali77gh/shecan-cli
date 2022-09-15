@@ -9,6 +9,10 @@ if [ "$platform" = "Darwin" ]
 then
     install_path="/usr/local/bin/shecan-cli"
 fi
+if [ "$platform" = "Windows" ]
+then
+    install_path="C:\Windows\System32\shecan-cli"
+fi
 
 # download
 echo "downloading..."
