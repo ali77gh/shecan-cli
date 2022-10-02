@@ -1,3 +1,4 @@
+#!/bin/bash
 
 platform=`uname`
 
@@ -12,7 +13,11 @@ fi
 
 # download
 echo "downloading..."
-wget -q -O - https://github.com/ali77gh/shecan-cli/releases/download/1.3.0/shecan.py > temp.py
+repo="ali77gh/shecan-cli"
+tag_name=$(curl --silent https://api.github.com/repos/$repo/releases/latest \
+                  | grep '"tag_name"' \
+                  | sed --regexp-extended 's/.*"([^"]+)".*/\1/')
+curl -sfL "https://github.com/$repo/releases/download/$tag_name/shecan.py" --output temp.py
 echo "done"
 
 # copy
