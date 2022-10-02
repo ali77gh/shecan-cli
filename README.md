@@ -23,7 +23,7 @@ Simple python script for enable and disable shecan.ir dns for gnu/linux and MacO
 # Install/Update with one simple command:
 
 ```bash
-wget -O - https://raw.githubusercontent.com/ali77gh/shecan-cli/master/install.sh | sudo bash
+curl -sfL https://raw.githubusercontent.com/ali77gh/shecan-cli/master/install.sh | sudo bash -
 ```
 
 # Dependencies
