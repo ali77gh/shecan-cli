@@ -10,7 +10,7 @@ from time import sleep
 
 # global configs
 ping_check_url =   "https://google.com"
-shecan_check_url = "https://check.shecan.ir:8443" # provided by sniffing shecan.ir xhr request :)
+shecan_check_url = "https://check.shecan.ir" # provided by sniffing shecan.ir xhr request :)
 shecan_dns = ["185.51.200.2","178.22.122.100"]
 
 # linux configs
