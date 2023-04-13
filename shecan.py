@@ -21,6 +21,9 @@ dns_file_bak = "/etc/resolv.conf.shecan.bak"
 interface = "Wi-Fi"
 dns_file_bak_mac = "/var/root/.shecan-cli"
 
+# Windows configs
+dns_file_win = "C:\Windows\System32\drivers\etc\hosts.file"
+dns_file_bak_win = "C:\Windows\System32\drivers\etc\hosts.file.shecan.bak"
 
 def bool_to_status(bool_value):
     if bool_value:
@@ -105,11 +108,58 @@ class Darwin_dns_util:
         pass
 
 
+class Windows_dns_util:
+
+    @staticmethod
+    def get_hosts_file() -> str:
+        hosts_file_content =   "# Writed by shecan-cli \n"
+        hosts_file_content += f"# your previous dns config is in {dns_file_bak_win}\n"
+        hosts_file_content += f"# you can restore your dns config by running > shecan-cli disable\n\n"
+        for dns_server in shecan_dns:
+            hosts_file_content += f"nameserver {dns_server}\n"
+        return hosts_file_content
+
+    @staticmethod
+    def local_status() -> bool:
+        file = open(dns_file_win,"r")
+        content = file.read()
+        file.close()
+        if content == Windows_dns_util.get_hosts_file():
+            return True
+        else:
+            return False
+    
+    @staticmethod
+    def enable():
+        if Windows_dns_util.local_status():
+            print("shecan is already enabled")
+            exit(0)
+
+        # backup
+        os.system(f'cp {dns_file_win} {dns_file_bak_win}') 
+
+        #enable
+        file = open(dns_file_win,"w")
+        file.write(Windows_dns_util.get_hosts_file())
+        file.close()
+        print("shecan enabled")
+
+    @staticmethod
+    def disable():
+        if not os.path.isfile(dns_file_bak_win):
+            print("shecan is already disabled")
+            exit(0)
+        os.system(f"mv {dns_file_bak_win} {dns_file_win}")
+        print("shecan disabled")
+
+
 def enable():
     if platform=="Linux":
         Linux_dns_util.enable()
     elif platform=="Darwin":
         Darwin_dns_util.enable()
+    elif platform=="Windows":
+        Windows_dns_util.enable()
     else:
         print(f"{platform} is not supported")
 
@@ -118,6 +168,8 @@ def disable():
         Linux_dns_util.disable()
     elif platform=="Darwin":
         Darwin_dns_util.disable()
+    elif platform=="Windows":
+        Windows_dns_util.disable()
     else:
         print(f"{platform} is not supported")
 
@@ -126,6 +178,8 @@ def local_status():
         return Linux_dns_util.local_status()
     elif platform=="Darwin":
         return Darwin_dns_util.local_status()
+    elif platform=="Windows":
+        return Windows_dns_util.local_status()
     else:
         print(f"{platform} is not supported")
 
