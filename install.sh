@@ -31,4 +31,9 @@ chmod +x "$install_path"
 echo "done"
 
 echo "shecan-cli installed successfully"
+
+# install requests
+echo "installing requests module"
+sudo pip3 install requests
+
 shecan-cli help
