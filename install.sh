@@ -34,7 +34,7 @@ echo "shecan-cli installed successfully"
 
 # install requests
 echo "installing requests module"
-sudo pip3 install requests
+sudo pip install requests
 echo "installed successfully"
 
 shecan-cli help
