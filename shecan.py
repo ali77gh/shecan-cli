@@ -190,7 +190,7 @@ def main_switch(argv):
     elif argv == "help":
         show_help()
     else:
-        print("unkown param: "+ argv)
+        print("unknown param: "+ argv)
         show_help()
 
 def main():
